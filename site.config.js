@@ -2,9 +2,9 @@ const CONFIG = {
   // profile setting (required)
   profile: {
     name: "catuscio",
-    image: "/avatar.jpg", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
+    image: "/profile.png", // If you want to create your own notion avatar, check out https://notion-avatar.vercel.app
     role: "AI Engineer",
-    bio: "Generalist with an Ownership",
+    bio: "Generalist with an Ownership🥝",
     email: "catuscio@hotmail.com",
     linkedin: "gyumin-choi",
     github: "catuscio",
@@ -18,8 +18,8 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-    title: "catuscio's blog",
-    description: "welcome to morethan-log!",
+    title: "kiwii dev",
+    description: "웰컴투규민월드드",
     scheme: "system", // 'light' | 'dark' | 'system'
   },
 
