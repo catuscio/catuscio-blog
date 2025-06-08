@@ -22,7 +22,7 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-    title: "kiwii dev",
+    title: "kiwii dev🥝",
     description: "웰컴투규민월드드",
     scheme: "system", // 'light' | 'dark' | 'system'
   },
@@ -73,7 +73,7 @@ const CONFIG = {
     },
   },
   isProd: process.env.VERCEL_ENV === "production", // distinguish between development and production environment (ref: https://vercel.com/docs/environment-variables#system-environment-variables)
-  revalidateTime: 21600 * 7, // revalidate time for [slug], index
+  revalidateTime: 60, // revalidate time for [slug], index
 }
 
 module.exports = { CONFIG }
