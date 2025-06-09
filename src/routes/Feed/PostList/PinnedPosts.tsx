@@ -15,9 +15,9 @@ const PinnedPosts: React.FC<Props> = ({ q }) => {
   const filteredPosts = useMemo(() => {  
     // filterPosts 함수 대신 직접 필터링  
     return data.filter((post) => post.tags?.includes("Pinned") ||
-    post.status.includes("PublicOnDetail")||
-    post.type.includes("Paper")
-  )
+      post.status.includes("PublicOnDetail")||
+      post.type.includes("Paper")
+    )
   }, [data, q])
 
   if (filteredPosts.length === 0) return null
