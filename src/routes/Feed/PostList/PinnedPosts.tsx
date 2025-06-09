@@ -13,13 +13,7 @@ const PinnedPosts: React.FC<Props> = ({ q }) => {
   const data = usePostsQuery()
 
   const filteredPosts = useMemo(() => {
-    const baseFiltered = filterPosts({
-      posts: data,
-      q,
-      category: DEFAULT_CATEGORY,
-      order: "desc",
-    })
-    return baseFiltered.filter((post) => post.tags?.includes("Pinned"))
+    return data.filter((post) => post.tags?.includes("Pinned"))
   }, [data, q])
 
   if (filteredPosts.length === 0) return null
