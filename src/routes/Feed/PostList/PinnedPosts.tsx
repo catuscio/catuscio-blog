@@ -4,21 +4,37 @@ import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
 import { filterPosts } from "./filterPosts"
 import { DEFAULT_CATEGORY } from "src/constants"
+import { getPosts } from "src/apis/notion-client/getPosts"  
+
 
 type Props = {
   q: string
 }
 
 const PinnedPosts: React.FC<Props> = ({ q }) => {
-  const data = usePostsQuery()
+  const [allData, setAllData] = useState<TPost[]>([])  
+    
+  useEffect(() => {  
+    const fetchData = async () => {  
+      const posts = await getPosts()  
+      // 모든 타입을 허용하는 필터링  
+      const filtered = filterPosts(posts, {
+        acceptStatus: ["Public", "PublicOnDetail"],
+        acceptType: ["Post", "Paper", "Page"]
+      })  
+      setAllData(filtered)  
+    }  
+    fetchData()  
+  }, [])  
 
   const filteredPosts = useMemo(() => {  
     // filterPosts 함수 대신 직접 필터링  
-    return data.filter((post) => post.tags?.includes("Pinned") ||
+    return allData.filter((post) =>
+      post.tags?.includes("Pinned") ||
       post.status.includes("PublicOnDetail")||
       post.type.includes("Paper")
     )
-  }, [data, q])
+  }, [allData, q])
 
   if (filteredPosts.length === 0) return null
 
