@@ -4,6 +4,7 @@ import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
 import { filterPosts } from "./filterPosts"
 import { DEFAULT_CATEGORY } from "src/constants"
+import { TPost } from "src/types"
 import { getPosts } from "src/apis/notion-client/getPosts"  
 
 
