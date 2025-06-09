@@ -12,18 +12,14 @@ const CONFIG = {
   },
   projects: [
     {
-      name: `morethan-log`,
-      href: "https://github.com/morethanmin/morethan-log",
-    },
-    {
-      name: `morethan-log`,
-      href: "https://github.com/morethanmin/morethan-log",
+      name: `☕Coffee Chat`,
+      href: "https://calendly.com/catuscio00/30min/",
     },
   ],
   // blog setting (required)
   blog: {
     title: "kiwii dev🥝",
-    description: "Welcome to my blog!",
+    description: "웰컴투규민월드",
     scheme: "system", // 'light' | 'dark' | 'system'
   },
 
