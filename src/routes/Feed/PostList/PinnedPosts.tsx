@@ -1,5 +1,5 @@
 import PostCard from "src/routes/Feed/PostList/PostCard"
-import React, { useMemo } from "react"
+import React, { useMemo, useState, useEffect } from "react"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
 import { filterPosts } from "./filterPosts"
