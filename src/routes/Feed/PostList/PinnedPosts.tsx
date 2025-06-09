@@ -2,9 +2,9 @@ import PostCard from "src/routes/Feed/PostList/PostCard"
 import React, { useMemo, useState, useEffect } from "react"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
-import { filterPosts } from "src/libs/utils/notion/filterPosts"  
+import { filterPosts } from "./filterPosts"
 import { DEFAULT_CATEGORY } from "src/constants"
-import { TPost } from "src/types" 
+import { useState, useEffect } from "react"  
 import { getPosts } from "src/apis/notion-client/getPosts"  
 
 
@@ -13,29 +13,37 @@ type Props = {
 }
 
 const PinnedPosts: React.FC<Props> = ({ q }) => {
-  const [allData, setAllData] = useState<TPost[]>([])  
+  const [allPosts, setAllPosts] = useState<TPost[]>([])  
     
   useEffect(() => {  
-    const fetchData = async () => {  
+    const fetchAllPosts = async () => {  
       const posts = await getPosts()  
-      // 모든 타입을 허용하는 필터링  
-      const filtered = filterPosts(posts, {
-        acceptStatus: ["Public", "PublicOnDetail"],
-        acceptType: ["Post", "Paper", "Page"]
-      })  
-      setAllData(filtered)  
+      setAllPosts(posts)  
     }  
-    fetchData()  
+    fetchAllPosts()  
   }, [])  
 
   const filteredPosts = useMemo(() => {  
-    // filterPosts 함수 대신 직접 필터링  
-    return allData.filter((post) =>
-      post.tags?.includes("Pinned") ||
-      post.status.includes("PublicOnDetail")||
-      post.type.includes("Paper")
-    )
-  }, [allData, q])
+    // 모든 타입의 포스트에서 직접 필터링  
+    return allPosts.filter((post) => {  
+      // 기본 유효성 검사  
+      const postDate = new Date(post?.date?.start_date || post.createdTime)  
+      const tomorrow = new Date()  
+      tomorrow.setDate(tomorrow.getDate() + 1)  
+      tomorrow.setHours(0, 0, 0, 0)  
+        
+      if (!post.title || !post.slug || postDate > tomorrow) return false  
+        
+      // 상태 필터링 (Public 또는 PublicOnDetail)  
+      const validStatus = post.status.includes("Public") || post.status.includes("PublicOnDetail")  
+      if (!validStatus) return false  
+        
+      // Pinned 조건  
+      return post.tags?.includes("Pinned") ||   
+             post.status.includes("PublicOnDetail") ||  
+             post.type.includes("Paper")  
+    })  
+  }, [allPosts, q])
 
   if (filteredPosts.length === 0) return null
 
