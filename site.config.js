@@ -23,7 +23,7 @@ const CONFIG = {
   // blog setting (required)
   blog: {
     title: "kiwii dev🥝",
-    description: "웰컴투규민월드드",
+    description: "Welcome to my blog!",
     scheme: "system", // 'light' | 'dark' | 'system'
   },
 
