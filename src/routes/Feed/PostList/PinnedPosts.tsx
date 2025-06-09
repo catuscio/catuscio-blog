@@ -3,6 +3,7 @@ import React, { useMemo } from "react"
 import usePostsQuery from "src/hooks/usePostsQuery"
 import styled from "@emotion/styled"
 import { filterPosts } from "./filterPosts"
+import { FilterPostsOptions } from "src/libs/utils/notion/filterPosts"
 import { DEFAULT_CATEGORY } from "src/constants"
 
 type Props = {
@@ -12,8 +13,17 @@ type Props = {
 const PinnedPosts: React.FC<Props> = ({ q }) => {
   const data = usePostsQuery()
 
-  const filteredPosts = useMemo(() => {
-    return data.filter((post) => post.tags?.includes("Pinned"))
+  const filteredPosts = useMemo(() => {  
+    const baseFiltered = filterPosts({  
+      posts: data,  
+      q,  
+      category: DEFAULT_CATEGORY,  
+      order: "desc",  
+    }, {
+      acceptStatus: ["Public", "PublicOnDetail"],  
+      acceptType: ["Paper", "Post", "Page"],  
+    })  
+    return baseFiltered.filter((post) => post.tags?.includes("Pinned"))  
   }, [data, q])
 
   if (filteredPosts.length === 0) return null
